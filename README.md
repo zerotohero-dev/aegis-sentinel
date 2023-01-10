@@ -13,15 +13,11 @@
 [Watch this demo video][aegis-demo-video] to learn more about how **Sentinel**
 is used to register secrets to workloads.
 
-## Netshoot
+[Check out Aegis’ README][aegis-readme] for sentinal usage examples,
+more information about the project, high level design, contributing guidelines, 
+and code of conduct.
 
-The development version of `aegis-sentinel` comes bundled with a modified version
-of [netshoot][netshoot] the help debugging the network. This is not recommended
-for a production deployment as it increases the attack surface.
-
-`z2hdev/aegis-sentinel` v0.5.43 and above do not bundle netshoot by default. To
-use `netshoot` inside sentinel, you’d need `z2hdev/aegis-sentinel-dev` as your
-container image instead.
-
+[aegis]: https://github.com/zerotohero-dev/aegis "Aegis"
+[aegis-readme]: https://github.com/zerotohero-dev/aegis/blob/main/README.md "Aegis README"
 [aegis-demo-video]: https://vimeo.com/v0lkan/secrets "Aegis: Keep your secrets… Secret."
 [netshoot]: https://github.com/nicolaka/netshoot "Netshoot:  Docker + Kubernetes network trouble-shooting swiss-army container"
