@@ -6,7 +6,7 @@
 #     .\_/.
 #
 
-VERSION=0.7.0
+VERSION=0.7.3
 PACKAGE=aegis-sentinel
 REPO=z2hdev/aegis-sentinel
 
