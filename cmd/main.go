@@ -19,7 +19,7 @@ import (
 	"github.com/spiffe/go-spiffe/v2/spiffetls/tlsconfig"
 	"github.com/spiffe/go-spiffe/v2/workloadapi"
 	"github.com/zerotohero-dev/aegis-core/env"
-	"github.com/zerotohero-dev/aegis/core/entity/reqres/v1"
+	reqres "github.com/zerotohero-dev/aegis/core/entity/reqres/v1"
 	"github.com/zerotohero-dev/aegis/core/validation"
 	"io"
 	"log"
@@ -92,12 +92,12 @@ func main() {
 		return
 	}
 
-	defer func(source *workloadapi.X509Source) {
+	defer func() {
 		err := source.Close()
 		if err != nil {
 			log.Println("Problem closing the workload source.")
 		}
-	}(source)
+	}()
 
 	// Make sure that the binary is enclosed in a Pod that we trust.
 	if !validation.IsSentinel(svid.ID.String()) {
@@ -129,7 +129,7 @@ func main() {
 		},
 	}
 
-	sr := v1.SecretUpsertRequest{
+	sr := reqres.SecretUpsertRequest{
 		WorkloadId: *workload,
 		Value:      *secret,
 	}
