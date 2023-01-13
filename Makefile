@@ -18,6 +18,9 @@ build-and-push: build bundle push
 build:
 	go build -o ${PACKAGE} ./cmd/main.go
 
+docker-build:
+	docker build . -t ${PACKAGE}:${VERSION}
+
 bundle:
 	go mod vendor
 	docker build . -t ${PACKAGE}:${VERSION}
