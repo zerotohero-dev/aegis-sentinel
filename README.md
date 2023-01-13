@@ -1,10 +1,4 @@
-```text
- .-'_.---._'-.
- ||####|(__)||   Protect your secrets, protect your business.
-   \\()|##//       Secure your sensitive data with Aegis.
-    \\ |#//                  <aegis.z2h.dev>
-     .\_/.
-```
+![Aegis](assets/aegis-banner.png "Aegis")
 
 ## Aegis Sentinel
 
