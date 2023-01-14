@@ -8,14 +8,16 @@
 
 package main
 
-import "time"
+import (
+	"os"
+	"os/signal"
+	"syscall"
+)
 
 func main() {
-	// Keep me alive for ~200 years.
-	time.Sleep(time.Duration(1<<63 - 1))
-
-	// Or alternatively, this:
-	// s := make(chan os.Signal, 1)
-	// signal.Notify(s, syscall.SIGINT, syscall.SIGTERM)
-	// select {}
+	// Block the process from exiting, but also be graceful and honor the
+	// termination signals that may come from the orchestrator.
+	s := make(chan os.Signal, 1)
+	signal.Notify(s, syscall.SIGINT, syscall.SIGTERM)
+	select {}
 }

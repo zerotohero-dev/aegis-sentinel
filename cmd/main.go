@@ -86,7 +86,7 @@ func main() {
 
 	svid, err := source.GetX509SVID()
 	if err != nil {
-		fmt.Println("I am having trouble fetching your identity from SPIRE.")
+		fmt.Println("I am having trouble fetching my identity from SPIRE.")
 		fmt.Println("I won’t proceed until you put me in a secured container.")
 		fmt.Println("")
 		return
