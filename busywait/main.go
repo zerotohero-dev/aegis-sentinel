@@ -9,6 +9,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"os/signal"
 	"syscall"
@@ -19,5 +20,9 @@ func main() {
 	// termination signals that may come from the orchestrator.
 	s := make(chan os.Signal, 1)
 	signal.Notify(s, syscall.SIGINT, syscall.SIGTERM)
-	select {}
+	select {
+	case e := <-s:
+		fmt.Println(e)
+		panic("bye cruel world!")
+	}
 }
