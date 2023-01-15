@@ -10,12 +10,15 @@ package main
 
 import (
 	"fmt"
+	"github.com/zerotohero-dev/aegis-core/probe"
 	"os"
 	"os/signal"
 	"syscall"
 )
 
 func main() {
+	go probe.CreateLiveness()
+
 	// Block the process from exiting, but also be graceful and honor the
 	// termination signals that may come from the orchestrator.
 	s := make(chan os.Signal, 1)
