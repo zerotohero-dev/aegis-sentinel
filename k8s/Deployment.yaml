@@ -56,6 +56,7 @@ spec:
         # will listen to. Defaults to `:8081`
         - name: AEGIS_PROBE_LIVENESS_PORT
           value: ":8081"
+        # This probe value should match the associated environment variable above.
         livenessProbe:
           httpGet:
             path: /
