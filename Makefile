@@ -9,7 +9,7 @@
 VERSION=0.11.0
 PACKAGE=aegis-sentinel
 REPO=z2hdev/aegis-sentinel
-REPO_LOCAL="$(minikube ip):5000/aegis-sidecar"
+REPO_LOCAL="$(shell minikube ip):5000/aegis-sidecar"
 
 all: build bundle push deploy
 
