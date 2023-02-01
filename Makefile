@@ -9,7 +9,7 @@
 VERSION=0.11.3
 PACKAGE=aegis-sentinel
 REPO=z2hdev/aegis-sentinel
-REPO_LOCAL="localhost:5000/aegis-sidecar"
+REPO_LOCAL="localhost:5000/aegis-sentinel"
 
 all: build bundle push deploy
 
