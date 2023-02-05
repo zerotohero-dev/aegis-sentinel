@@ -6,7 +6,7 @@
 #     .\_/.
 #
 
-VERSION=0.12.10
+VERSION=0.12.30
 PACKAGE=aegis-sentinel
 REPO=z2hdev/aegis-sentinel
 REPO_LOCAL="localhost:5000/aegis-sentinel"
