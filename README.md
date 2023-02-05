@@ -1,5 +1,8 @@
-![Aegis](assets/aegis-banner.png "Aegis")
+# Aegis
 
+![Aegis](assets/aegis-icon.png "Aegis")
+
+keep your secrets… secret
 ## Aegis Sentinel
 
 **Sentinel** is the only pod that can directly talk to **Sidecar**.
