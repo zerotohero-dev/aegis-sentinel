@@ -20,7 +20,7 @@ build-and-push: build bundle push
 .PHONY: build
 build:
 	go mod vendor
-	go build -o ${PACKAGE} ./cmd/get.go .cmd/post.go ./cmd/main.go
+	go build -o ${PACKAGE} ./cmd/get.go ./cmd/post.go ./cmd/main.go
 
 docker-build:
 	docker build . -t ${PACKAGE}:${VERSION}
