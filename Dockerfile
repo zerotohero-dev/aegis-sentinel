@@ -14,7 +14,7 @@ COPY vendor /build/vendor
 COPY busywait /build/busywait
 COPY go.mod /build/go.mod
 WORKDIR /build
-RUN CGO_ENABLED=0 GOOS=linux go build -mod vendor -a -o aegis ./cmd/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build -mod vendor -a -o aegis ./cmd/get.go ./cmd/post.go ./cmd/main.go
 RUN CGO_ENABLED=0 GOOS=linux go build -mod vendor -a -o sloth ./busywait/main.go
 
 # for debug: FROM alpine:3.17.0
