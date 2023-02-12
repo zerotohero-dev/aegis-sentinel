@@ -38,12 +38,21 @@ func main() {
 		},
 	)
 
+	namespace := parser.String(
+		"ns", "namespace",
+		&argparse.Options{
+			Required: false,
+			Default:  "aegis-system",
+			Help:     "the namespace of the Kubernetes Secret to create.",
+		},
+	)
+
 	backingStore := parser.String(
 		"b", "store",
 		&argparse.Options{
 			Required: false,
 			Default:  "file",
-			Help:     "backing store type (file|memory|cluster). defaults to 'file'.",
+			Help:     "backing store type (file|memory|cluster).",
 		},
 	)
 
@@ -90,5 +99,9 @@ func main() {
 		return
 	}
 
-	safe.Post(*workload, *secret, *backingStore, *useKubernetes)
+	if useKubernetes == nil || *useKubernetes == false {
+		*namespace = "aegis-system"
+	}
+
+	safe.Post(*workload, *secret, *namespace, *backingStore, *useKubernetes)
 }

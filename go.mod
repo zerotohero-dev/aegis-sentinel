@@ -6,7 +6,7 @@ require (
 	github.com/akamensky/argparse v1.4.0
 	github.com/spiffe/go-spiffe/v2 v2.1.1
 	github.com/zerotohero-dev/aegis v0.5.99
-	github.com/zerotohero-dev/aegis-core v0.12.37
+	github.com/zerotohero-dev/aegis-core v0.12.38
 )
 
 require (

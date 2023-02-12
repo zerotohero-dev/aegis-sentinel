@@ -27,7 +27,7 @@ import (
 	"net/url"
 )
 
-func Post(workloadId, secret, backingStore string, useKubernetes bool) {
+func Post(workloadId, secret, namespace, backingStore string, useKubernetes bool) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -102,6 +102,7 @@ func Post(workloadId, secret, backingStore string, useKubernetes bool) {
 	sr := reqres.SecretUpsertRequest{
 		WorkloadId:    workloadId,
 		BackingStore:  bs,
+		Namespace:     namespace,
 		UseKubernetes: useKubernetes,
 		Value:         secret,
 	}
