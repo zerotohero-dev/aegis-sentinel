@@ -42,9 +42,8 @@ func main() {
 		"b", "store",
 		&argparse.Options{
 			Required: false,
-			// disk, memory, cluster
-			Default: "disk",
-			Help:    "backing store type (file|memory|cluster). defaults to 'file'.",
+			Default:  "file",
+			Help:     "backing store type (file|memory|cluster). defaults to 'file'.",
 		},
 	)
 
