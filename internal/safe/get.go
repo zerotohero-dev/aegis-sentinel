@@ -6,7 +6,7 @@
  *     .\_/.
  */
 
-package main
+package safe
 
 import (
 	"context"
@@ -23,7 +23,7 @@ import (
 	"net/url"
 )
 
-func get() {
+func Get() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 

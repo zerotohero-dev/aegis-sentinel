@@ -6,7 +6,7 @@
  *     .\_/.
  */
 
-package main
+package notary
 
 import (
 	"bytes"
@@ -18,15 +18,16 @@ import (
 	"github.com/spiffe/go-spiffe/v2/spiffetls/tlsconfig"
 	"github.com/spiffe/go-spiffe/v2/workloadapi"
 	"github.com/zerotohero-dev/aegis-core/env"
+	"github.com/zerotohero-dev/aegis-core/validation"
 	reqres "github.com/zerotohero-dev/aegis/core/entity/reqres/v1"
-	"github.com/zerotohero-dev/aegis/core/validation"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
 )
 
-func post(workloadId, secret string) {
+// Register is EXPERIMENTAL and is NOT used anywhere at the moment.
+func Register(workloadId string) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -63,15 +64,16 @@ func post(workloadId, secret string) {
 		return
 	}
 
+	// Only Aegis Notary can be a peer for this API endpoint.
 	authorizer := tlsconfig.AdaptMatcher(func(id spiffeid.ID) error {
-		if validation.IsSafe(id.String()) {
+		if validation.IsNotary(id.String()) {
 			return nil
 		}
 
 		return errors.New("I don’t know you, and it’s crazy: '" + id.String() + "'")
 	})
 
-	p, err := url.JoinPath(env.SafeEndpointUrl(), "/sentinel/v1/secrets")
+	p, err := url.JoinPath(env.NotaryEndpointUrl(), "/sentinel/v1/register")
 	if err != nil {
 		fmt.Println("I am having problem generating Aegis Safe secrets api endpoint URL.")
 		fmt.Println("")
@@ -87,7 +89,6 @@ func post(workloadId, secret string) {
 
 	sr := reqres.SecretUpsertRequest{
 		WorkloadId: workloadId,
-		Value:      secret,
 	}
 
 	md, err := json.Marshal(sr)
