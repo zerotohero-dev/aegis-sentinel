@@ -11,6 +11,7 @@ package main
 import (
 	"fmt"
 	"github.com/akamensky/argparse"
+	"github.com/zerotohero/dev/aegis-sentinel/internal/safe"
 	"os"
 )
 
@@ -28,18 +29,37 @@ func main() {
 		},
 	)
 
+	useKubernetes := parser.Flag(
+		"k", "use-k8s",
+		&argparse.Options{
+			Required: false,
+			Default:  false,
+			Help:     "update an associated Kubernetes secret upon save",
+		},
+	)
+
+	backingStore := parser.String(
+		"b", "store",
+		&argparse.Options{
+			Required: false,
+			Default:  "file",
+			Help:     "backing store type (file|memory|cluster). defaults to 'file'.",
+		},
+	)
+
 	workload := parser.String(
 		"w", "workload",
 		&argparse.Options{
-			Required: true,
-			Help:     "name of the workload (i.e. the '$name' segment of its ClusterSPIFFEID ('spiffe://trustDomain/workload/$name/…'))",
+			Required: false,
+			Help: "name of the workload (i.e. the '$name' segment of its " +
+				"ClusterSPIFFEID ('spiffe://trustDomain/workload/$name/…'))",
 		},
 	)
 
 	secret := parser.String(
 		"s", "secret",
 		&argparse.Options{
-			Required: true,
+			Required: false,
 			Help:     "the secret to store for the workload",
 		},
 	)
@@ -50,7 +70,7 @@ func main() {
 	}
 
 	if list != nil && *list == true {
-		get()
+		safe.Get()
 		return
 	}
 
@@ -70,5 +90,5 @@ func main() {
 		return
 	}
 
-	post(*workload, *secret)
+	safe.Post(*workload, *secret, *backingStore, *useKubernetes)
 }

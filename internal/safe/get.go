@@ -6,27 +6,24 @@
  *     .\_/.
  */
 
-package main
+package safe
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/spiffe/go-spiffe/v2/spiffeid"
 	"github.com/spiffe/go-spiffe/v2/spiffetls/tlsconfig"
 	"github.com/spiffe/go-spiffe/v2/workloadapi"
 	"github.com/zerotohero-dev/aegis-core/env"
-	reqres "github.com/zerotohero-dev/aegis/core/entity/reqres/v1"
-	"github.com/zerotohero-dev/aegis/core/validation"
+	"github.com/zerotohero-dev/aegis-core/validation"
 	"io"
 	"log"
 	"net/http"
 	"net/url"
 )
 
-func post(workloadId, secret string) {
+func Get() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -85,19 +82,7 @@ func post(workloadId, secret string) {
 		},
 	}
 
-	sr := reqres.SecretUpsertRequest{
-		WorkloadId: workloadId,
-		Value:      secret,
-	}
-
-	md, err := json.Marshal(sr)
-	if err != nil {
-		fmt.Println("Trouble generating payload.")
-		fmt.Println("")
-		return
-	}
-
-	r, err := client.Post(p, "application/json", bytes.NewBuffer(md))
+	r, err := client.Get(p)
 	if err != nil {
 		fmt.Println("Problem connecting to Aegis Safe API endpoint URL.")
 		fmt.Println("")

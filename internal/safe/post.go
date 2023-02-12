@@ -6,15 +6,19 @@
  *     .\_/.
  */
 
-package main
+package safe
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/spiffe/go-spiffe/v2/spiffeid"
 	"github.com/spiffe/go-spiffe/v2/spiffetls/tlsconfig"
 	"github.com/spiffe/go-spiffe/v2/workloadapi"
+	data "github.com/zerotohero-dev/aegis-core/entity/data/v1"
+	reqres "github.com/zerotohero-dev/aegis-core/entity/reqres/safe/v1"
 	"github.com/zerotohero-dev/aegis-core/env"
 	"github.com/zerotohero-dev/aegis-core/validation"
 	"io"
@@ -23,7 +27,7 @@ import (
 	"net/url"
 )
 
-func get() {
+func Post(workloadId, secret, backingStore string, useKubernetes bool) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -82,7 +86,34 @@ func get() {
 		},
 	}
 
-	r, err := client.Get(p)
+	bs := env.SafeBackingStore()
+	if backingStore != "" {
+		b := data.BackingStore(backingStore)
+		switch b {
+		case data.File:
+			bs = data.File
+		case data.Memory:
+			bs = data.Memory
+		case data.Cluster:
+			bs = data.Cluster
+		}
+	}
+
+	sr := reqres.SecretUpsertRequest{
+		WorkloadId:    workloadId,
+		BackingStore:  bs,
+		UseKubernetes: useKubernetes,
+		Value:         secret,
+	}
+
+	md, err := json.Marshal(sr)
+	if err != nil {
+		fmt.Println("Trouble generating payload.")
+		fmt.Println("")
+		return
+	}
+
+	r, err := client.Post(p, "application/json", bytes.NewBuffer(md))
 	if err != nil {
 		fmt.Println("Problem connecting to Aegis Safe API endpoint URL.")
 		fmt.Println("")
