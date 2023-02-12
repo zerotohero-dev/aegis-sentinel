@@ -17,7 +17,7 @@ import (
 	"github.com/spiffe/go-spiffe/v2/spiffeid"
 	"github.com/spiffe/go-spiffe/v2/spiffetls/tlsconfig"
 	"github.com/spiffe/go-spiffe/v2/workloadapi"
-	v1 "github.com/zerotohero-dev/aegis-core/entity/data/v1"
+	data "github.com/zerotohero-dev/aegis-core/entity/data/v1"
 	reqres "github.com/zerotohero-dev/aegis-core/entity/reqres/safe/v1"
 	"github.com/zerotohero-dev/aegis-core/env"
 	"github.com/zerotohero-dev/aegis-core/validation"
@@ -88,14 +88,14 @@ func Post(workloadId, secret, backingStore string, useKubernetes bool) {
 
 	bs := env.SafeBackingStore()
 	if backingStore != "" {
-		b := v1.BackingStore(backingStore)
+		b := data.BackingStore(backingStore)
 		switch b {
-		case v1.File:
-			bs = v1.File
-		case v1.Memory:
-			bs = v1.Memory
-		case v1.Cluster:
-			bs = v1.Cluster
+		case data.File:
+			bs = data.File
+		case data.Memory:
+			bs = data.Memory
+		case data.Cluster:
+			bs = data.Cluster
 		}
 	}
 
