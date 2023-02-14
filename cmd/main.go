@@ -33,13 +33,13 @@ func main() {
 		"k", "use-k8s",
 		&argparse.Options{
 			Required: false,
-			Default:  false,
-			Help:     "update an associated Kubernetes secret upon save",
+			Help: "update an associated Kubernetes secret upon save. " +
+				"Overrides AEGIS_SAFE_USE_KUBERNETES_SECRETS.",
 		},
 	)
 
 	namespace := parser.String(
-		"ns", "namespace",
+		"n", "namespace",
 		&argparse.Options{
 			Required: false,
 			Default:  "aegis-system",
@@ -51,8 +51,8 @@ func main() {
 		"b", "store",
 		&argparse.Options{
 			Required: false,
-			Default:  "file",
-			Help:     "backing store type (file|memory|cluster).",
+			Help: "backing store type (file|memory|cluster). " +
+				"Overrides AEGIS_SAFE_BACKING_STORE.",
 		},
 	)
 
@@ -61,7 +61,7 @@ func main() {
 		&argparse.Options{
 			Required: false,
 			Help: "name of the workload (i.e. the '$name' segment of its " +
-				"ClusterSPIFFEID ('spiffe://trustDomain/workload/$name/…'))",
+				"ClusterSPIFFEID ('spiffe://trustDomain/workload/$name/…')).",
 		},
 	)
 
@@ -69,7 +69,7 @@ func main() {
 		"s", "secret",
 		&argparse.Options{
 			Required: false,
-			Help:     "the secret to store for the workload",
+			Help:     "the secret to store for the workload.",
 		},
 	)
 

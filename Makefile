@@ -6,7 +6,7 @@
 #     .\_/.
 #
 
-VERSION=0.12.30
+VERSION=0.12.51
 PACKAGE=aegis-sentinel
 REPO=z2hdev/aegis-sentinel
 REPO_LOCAL="localhost:5000/aegis-sentinel"
@@ -20,7 +20,7 @@ build-and-push: build bundle push
 .PHONY: build
 build:
 	go mod vendor
-	go build -o ${PACKAGE} ./cmd/get.go ./cmd/post.go ./cmd/main.go
+	go build -o ${PACKAGE} ./cmd/main.go
 
 docker-build:
 	docker build . -t ${PACKAGE}:${VERSION}
@@ -49,4 +49,3 @@ deploy-local:
 	kubectl apply -f ./k8s/Namespace.yaml
 	kubectl apply -f ./k8s/ServiceAccount.yaml
 	kubectl apply -k ./k8s/
-	kubectl apply -f ./k8s/Deployment.yaml
