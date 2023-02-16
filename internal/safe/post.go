@@ -27,7 +27,8 @@ import (
 	"net/url"
 )
 
-func Post(workloadId, secret, namespace, backingStore string, useKubernetes bool) {
+func Post(workloadId, secret, namespace, backingStore string, useKubernetes bool,
+	template string, format string, encrypt bool) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -99,11 +100,22 @@ func Post(workloadId, secret, namespace, backingStore string, useKubernetes bool
 		}
 	}
 
+	f := data.None
+	switch data.SecretFormat(format) {
+	case data.Json:
+		f = data.Json
+	case data.Yaml:
+		f = data.Yaml
+	}
+
 	sr := reqres.SecretUpsertRequest{
 		WorkloadId:    workloadId,
 		BackingStore:  bs,
 		Namespace:     namespace,
 		UseKubernetes: useKubernetes,
+		Template:      template,
+		Format:        f,
+		Encrypt:       encrypt,
 		Value:         secret,
 	}
 
