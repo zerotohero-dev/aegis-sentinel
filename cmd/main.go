@@ -73,8 +73,8 @@ func main() {
 		return
 	}
 
-	if useKubernetes == nil || *useKubernetes == false {
-		*namespace = "aegis-system"
+	if namespace == nil || *namespace == "" {
+		*namespace = "default"
 	}
 
 	workloadP := ""
