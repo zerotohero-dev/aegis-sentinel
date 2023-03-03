@@ -10,10 +10,10 @@ keep your secrets… secret
 [Watch this demo video][aegis-demo-video] to learn more about how **Sentinel**
 is used to register secrets to workloads.
 
-[Check out Aegis’ README][aegis-readme] for **Aegis Sentinel** usage examples,
-more information about the project, high level design, contributing guidelines, 
-and code of conduct.
+[Check out **Aegis** documentation for **Sentinel**][docs] to learn more about
+how to use **Aegis Sentinel**.
 
+[docs]: https://aegis.ist/docs/sentinel "Aegis Sentinel Documentation"
 [aegis]: https://github.com/zerotohero-dev/aegis "Aegis"
 [aegis-readme]: https://github.com/zerotohero-dev/aegis/blob/main/README.md "Aegis README"
 [aegis-demo-video]: https://vimeo.com/v0lkan/secrets "Aegis: Keep your secrets… Secret."

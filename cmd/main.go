@@ -43,9 +43,20 @@ func main() {
 		Required: false,
 		Help:     "the secret to store for the workload.",
 	})
-	template := parser.String("t", "template", &argparse.Options{})
-	format := parser.String("f", "format", &argparse.Options{})
-	encrypt := parser.Flag("e", "encrypt", &argparse.Options{})
+	template := parser.String("t", "template", &argparse.Options{
+		Required: false,
+		Help:     "the template used to transform the secret stored.",
+	})
+	format := parser.String("f", "format", &argparse.Options{
+		Required: false,
+		Help: "the format to display the secrets in." +
+			" Has effect only when `-t` is provided. " +
+			"Valid values: yaml, json, and none. Defaults to none.",
+	})
+	//encrypt := parser.Flag("e", "encrypt", &argparse.Options{
+	//	Required: false,
+	//	Help:     "(WIP) Encrypt the secret value with Aegis Safe public key before storage.",
+	//})
 
 	err := parser.Parse(os.Args)
 	if err != nil {
@@ -113,9 +124,9 @@ func main() {
 	}
 
 	encryptP := false
-	if encrypt != nil {
-		encryptP = *encrypt
-	}
+	//if encrypt != nil {
+	//	encryptP = *encrypt
+	//}
 
 	safe.Post(
 		workloadP, secretP, namespaceP, backingStoreP, useK8sP,
