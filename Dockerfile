@@ -23,6 +23,15 @@ RUN CGO_ENABLED=0 GOOS=linux go build -mod vendor -a -o sloth ./busywait/main.go
 # for debug: FROM alpine:3.17.0
 FROM gcr.io/distroless/static-debian11
 
+LABEL "maintainers"="Volkan Özçelik <volkan@aegis.ist>"
+LABEL "version"="1.3.0"
+LABEL "website"="https://aegis.ist/"
+LABEL "repo"="https://github.com/zerotohero-dev/aegis-sentinel"
+LABEL "documentation"="https://aegis.ist/docs/"
+LABEL "contact"="https://aegis.ist/contact/"
+LABEL "community"="https://aegis.ist/contact/#community"
+LABEL "changelog"="https://aegis.ist/changelog"
+
 # Copy the required binaries
 COPY --from=builder /build/aegis /bin/aegis
 COPY --from=builder /build/sloth /bin/sloth
