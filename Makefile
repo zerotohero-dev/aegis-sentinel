@@ -6,7 +6,7 @@
 #     .\_/.
 #
 
-VERSION=0.13.0
+VERSION=0.13.5
 PACKAGE=aegis-sentinel
 REPO=z2hdev/aegis-sentinel
 REPO_LOCAL="localhost:5000/aegis-sentinel"
@@ -19,33 +19,22 @@ build-and-push: build bundle push
 
 .PHONY: build
 build:
-	go mod vendor
-	go build -o ${PACKAGE} ./cmd/main.go
+	./hack/build.sh $(PACKAGE)
 
 docker-build:
-	docker build . -t ${PACKAGE}:${VERSION}
+	./hack/docker-build.sh $(PACKAGE) $(VERSION)
 
 bundle:
-	go mod vendor
-	docker build . -t ${PACKAGE}:${VERSION}
+	./hack/bundle.sh $(PACKAGE) $(VERSION)
 
 push:
-	docker build . -t ${PACKAGE}:${VERSION}
-	docker tag ${PACKAGE}:${VERSION} ${REPO}:${VERSION}
-	docker push ${REPO}:${VERSION}
+	./hack/push.sh $(PACKAGE) $(VERSION) $(REPO)
 
 deploy:
-	kubectl apply -f ./k8s/Namespace.yaml
-	kubectl apply -f ./k8s/ServiceAccount.yaml
-	kubectl apply -f ./k8s/Identity.yaml
-	kubectl apply -f ./k8s/Deployment.yaml
+	./hack/deploy.sh
 
 push-local:
-	docker build . -t ${PACKAGE}:${VERSION}
-	docker tag ${PACKAGE}:${VERSION} ${REPO_LOCAL}:${VERSION}
-	docker push ${REPO_LOCAL}:${VERSION}
+	./hack/push-local.sh $(PACKAGE) $(VERSION) $(REPO_LOCAL)
 
 deploy-local:
-	kubectl apply -f ./k8s/Namespace.yaml
-	kubectl apply -f ./k8s/ServiceAccount.yaml
-	kubectl apply -k ./k8s/
+	./hack/deploy-local.sh
